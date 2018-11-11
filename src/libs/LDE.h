@@ -17,4 +17,4 @@ int removeDoInicio(Lista *lista, void *info);
 int insereNoFim(Lista *lista, void *info);
 int removeDoFim(Lista *lista, void *info);
 void mostraLista(Lista lista, void (*mostraInfo)(void *));
-void inverte(Lista *lista);
+// void inverte(Lista *lista);

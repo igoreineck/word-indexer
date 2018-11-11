@@ -130,39 +130,39 @@ void mostraLista(Lista lista, void (*mostraInfo)(void *)) {
 	}
 }
 
-void inverte(Lista *lista) {
-	if (!listaVazia(*lista)) {
-		Elemento *p1 = lista->cabeca;
-		Elemento *p2 = lista->cabeca;
+// void inverte(Lista *lista) {
+// 	if (!listaVazia(*lista)) {
+// 		Elemento *p1 = lista->cabeca;
+// 		Elemento *p2 = lista->cabeca;
 
-		while (p2->proximo != NULL) {
-			p2 = p2->proximo;
-		}
+// 		while (p2->proximo != NULL) {
+// 			p2 = p2->proximo;
+// 		}
 
-		while (p1 != p2->anterior && p1 != p2) {
-			void *aux = p1->info;
-			p1->info = p2->info;
-			p2->info = aux;
-			p1 = p1->proximo;
-			p2 = p2->anterior;
-		}
-	}
-}
+// 		while (p1 != p2->anterior && p1 != p2) {
+// 			void *aux = p1->info;
+// 			p1->info = p2->info;
+// 			p2->info = aux;
+// 			p1 = p1->proximo;
+// 			p2 = p2->anterior;
+// 		}
+// 	}
+// }
 
-void ordena(int *v, int n) {
-	int i;
+// void ordena(int *v, int n) {
+// 	int i;
 
-	for (i = 0; i < n - 1; i++) {
-		int i_menor = i, j;
+// 	for (i = 0; i < n - 1; i++) {
+// 		int i_menor = i, j;
 
-		for (j = i + 1; j < n; j++) {
-			if (v[j] < v[i_menor]) {
-				i_menor = j;
-			}
-		}
+// 		for (j = i + 1; j < n; j++) {
+// 			if (v[j] < v[i_menor]) {
+// 				i_menor = j;
+// 			}
+// 		}
 
-		int aux = v[i];
-		v[i] = v[i_menor];
-		v[i_menor] = aux;
-	}
-}
+// 		int aux = v[i];
+// 		v[i] = v[i_menor];
+// 		v[i_menor] = aux;
+// 	}
+// }

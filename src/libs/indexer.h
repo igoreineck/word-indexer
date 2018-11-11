@@ -9,4 +9,4 @@ typedef struct no {
     Lista *ocorrencias;
 } No;
 
-int processar(char *path);
+int processar(void);
