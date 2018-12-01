@@ -49,8 +49,6 @@ int insereNoInicio(Lista *lista, void *info) {
 	p->anterior = NULL;
 	lista->cabeca = p;
 
-	printf("Valor inserido com sucesso!\n");
-
 	return 1;
 }
 
@@ -128,6 +126,25 @@ void mostraLista(Lista lista, void (*mostraInfo)(void *)) {
 			p = p->proximo;
 		}
 	}
+}
+
+int destroy(Lista *lista) {
+	Elemento *p = lista->cabeca;
+
+	while (p != NULL) {
+		p = p->proximo;
+	}
+
+	while (p != NULL) {
+		p = p->anterior;
+		free(p->proximo);
+	}
+
+	free(lista->cabeca->proximo);
+	free(lista->cabeca);
+	free(lista);
+
+	return EXIT_SUCCESS;
 }
 
 // void inverte(Lista *lista) {

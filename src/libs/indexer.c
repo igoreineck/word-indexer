@@ -3,43 +3,43 @@
 #include <string.h>
 #include "indexer.h"
 
-// abrir arquivo
-// fazer varredura no arquivo
-// armazenar em memória o conteúdo do arquivo
-// direcionar o conteúdo para o indexador
-// retornar o conteúdo do indexador para o usuário
-void mostra_lista(void *info) {
+void mostra_float(void *info) {
     char *p = (char *) info;
     printf("%s\n", p);
 }
 
-int processar(void) {
+int readFile(void) {
     FILE *arquivo;
     Lista listaDeStrings;
 
     inicializaLista(&listaDeStrings, sizeof(char));
 
-    char buffer[100];
+    char strAux[10];
 
     if ((arquivo = fopen("../datafiles/text.txt", "r+")) == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return ERROR;
     }
 
-    fread(buffer, sizeof(buffer), 1, arquivo);
+    int iterator = 0;
+    int stringIterator = 0;
+    while (!feof(arquivo)) {
+        char c = fgetc(arquivo);
 
-    for (int i = 0; i < strlen(buffer); i++) {
-        char strAux;
-
-        if (buffer[i] != ' ' && buffer[i] != '\n') {
-            strcat(strAux, buffer[i]);
+        if (c != ' ' && c != '\n' && c != ',' && c != '.') {
+            strAux[stringIterator] = c;
+            stringIterator++;
         } else {
-            // insereNoFim(&listaDeStrings, &strAux);
-            // strAux = NULL;
+            insereNoFim(&listaDeStrings, &strAux);
+            // printf("%s\n", strAux);
+            memset(strAux, 0, strlen(strAux)*sizeof(char));
+            stringIterator = 0;
         }
+
+        iterator++;
     }
 
-    // mostraLista(listaDeStrings, mostra_lista);
+    mostraLista(listaDeStrings, mostra_float);
 
     fclose(arquivo);
 
