@@ -1,4 +1,4 @@
-all: compile_files
+all: compile_files clear run
 
 compile_files: LDE.o indexer.o main.o
 	gcc -fno-stack-protector -Wall -o app LDE.o indexer.o main.o 
@@ -13,4 +13,7 @@ main.o: main.c
 	gcc -c main.c
 
 clear:
-	rm -f .o
+	rm -f *.o
+
+run:
+	./app
