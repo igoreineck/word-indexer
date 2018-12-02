@@ -9,8 +9,8 @@ void mostra_char(void *info) {
 }
 
 void mostra_int(void *info) {
-    int p* = info;
-    printf("%d\n", p);
+    int *p = info;
+    printf("%ls\n", p);
 }
 
 int readFile(void) {
@@ -29,6 +29,8 @@ int readFile(void) {
 
     int iterator = 0;
     int stringIterator = 0;
+    int lineIterator = 1;
+
     while (!feof(arquivo)) {
         char c = fgetc(arquivo);
 
@@ -36,9 +38,25 @@ int readFile(void) {
             strAux[stringIterator] = c;
             stringIterator++;
         } else {
-            insereNoFim(&listaDeStrings, &strAux);
+            Node no;
+            Lista ocorrenciasWord;
+
+            inicializaLista(&ocorrenciasWord, sizeof(int));
+
+            no.palavra = strAux;
+
+            insereNoFim(&ocorrenciasWord, &lineIterator);
+
+            insereNoFim(&listaDeStrings, &no);
+
             memset(strAux, 0, strlen(strAux)*sizeof(char));
+
+            destroy(&ocorrenciasWord);
+
             stringIterator = 0;
+
+            if (c == '\n')
+                lineIterator++;
         }
 
         iterator++;
