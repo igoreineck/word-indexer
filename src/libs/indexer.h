@@ -2,21 +2,12 @@
 
 #define SUCCESS 0
 #define ERROR 1
+#define WORD_LENGTH_DEFAULT 15
 
-// typedef struct elemento {
-//     void *info;
-//     struct elemento *anterior, *proximo;
-// } Elemento;
-
-// typedef struct {
-//     int tamanhoInfo;
-//     Elemento *cabeca;
-// } Lista;
-
-// typedef struct no {
-//     void *palavra;
-//     int numero_ocorrencias;
-//     Lista *ocorrencias;
-// } No;
+typedef struct node {
+    char *palavra;
+    int numero_ocorrencias;
+    Lista *ocorrencias;
+} Node;
 
 int readFile(void);

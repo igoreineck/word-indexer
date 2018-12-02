@@ -140,10 +140,6 @@ int destroy(Lista *lista) {
 		free(p->proximo);
 	}
 
-	free(lista->cabeca->proximo);
-	free(lista->cabeca);
-	free(lista);
-
 	return EXIT_SUCCESS;
 }
 

@@ -3,21 +3,27 @@
 #include <string.h>
 #include "indexer.h"
 
-void mostra_float(void *info) {
-    char *p = (char *) info;
+void mostra_char(void *info) {
+    char *p = info;
     printf("%s\n", p);
+}
+
+void mostra_int(void *info) {
+    int p* = info;
+    printf("%d\n", p);
 }
 
 int readFile(void) {
     FILE *arquivo;
     Lista listaDeStrings;
 
-    inicializaLista(&listaDeStrings, sizeof(char));
+    inicializaLista(&listaDeStrings, sizeof(char)*WORD_LENGTH_DEFAULT);
 
-    char strAux[10];
+    char strAux[WORD_LENGTH_DEFAULT] = {' '};
 
     if ((arquivo = fopen("../datafiles/text.txt", "r+")) == NULL) {
         printf("Erro ao abrir o arquivo.\n");
+
         return ERROR;
     }
 
@@ -31,7 +37,6 @@ int readFile(void) {
             stringIterator++;
         } else {
             insereNoFim(&listaDeStrings, &strAux);
-            // printf("%s\n", strAux);
             memset(strAux, 0, strlen(strAux)*sizeof(char));
             stringIterator = 0;
         }
@@ -39,9 +44,10 @@ int readFile(void) {
         iterator++;
     }
 
-    mostraLista(listaDeStrings, mostra_float);
+    mostraLista(listaDeStrings, mostra_char);
+    destroy(&listaDeStrings);
 
     fclose(arquivo);
 
-    return SUCCESS;
+    return EXIT_SUCCESS;
 }
