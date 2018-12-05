@@ -13,11 +13,20 @@ void mostra_int(void *info) {
     printf("%ls\n", p);
 }
 
+void mostra_lista(Lista lista) {
+    Elemento *p = lista.cabeca;
+
+    while (p != NULL) {
+        printf("%p\n", p->info);
+        p = p->proximo;
+    }
+}
+
 int readFile(void) {
     FILE *arquivo;
     Lista listaDeStrings;
 
-    inicializaLista(&listaDeStrings, sizeof(char)*WORD_LENGTH_DEFAULT);
+    inicializaLista(&listaDeStrings, sizeof(Node));
 
     char strAux[WORD_LENGTH_DEFAULT] = {' '};
 
@@ -39,19 +48,30 @@ int readFile(void) {
             stringIterator++;
         } else {
             Node no;
-            Lista ocorrenciasWord;
+            // int n_ocorrencias = 0;
+            Lista ocorrencias;
 
-            inicializaLista(&ocorrenciasWord, sizeof(int));
+            inicializaLista(&ocorrencias, sizeof(int));
 
-            no.palavra = strAux;
+            insereNoFim(&ocorrencias, &lineIterator);
 
-            insereNoFim(&ocorrenciasWord, &lineIterator);
+            // int search = buscaString(listaDeStrings, strAux);
+
+            // if (search != 0) {
+            //     strcpy(no.palavra, strAux);
+            //     n_ocorrencias++;
+            // } else {
+            //     n_ocorrencias += 2;
+            // }
+
+            // no.numero_ocorrencias = n_ocorrencias;
+            no.ocorrencias = &ocorrencias;
 
             insereNoFim(&listaDeStrings, &no);
 
             memset(strAux, 0, strlen(strAux)*sizeof(char));
 
-            destroy(&ocorrenciasWord);
+            // destroy(&ocorrencias);
 
             stringIterator = 0;
 
@@ -62,7 +82,7 @@ int readFile(void) {
         iterator++;
     }
 
-    mostraLista(listaDeStrings, mostra_char);
+    mostraListaComStruct(listaDeStrings, mostra_char, mostra_int, mostra_lista);
     destroy(&listaDeStrings);
 
     fclose(arquivo);

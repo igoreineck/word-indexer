@@ -117,13 +117,31 @@ void mostraLista(Lista lista, void (*mostraInfo)(void *)) {
 	if (listaVazia(lista)) {
 		printf("Lista vazia!\n");
 	} else {
-		printf("Dados da lista: \n");
 
 		Elemento *p = lista.cabeca;
 
 		while (p != NULL) {
 			mostraInfo(p->info);
 			p = p->proximo;
+		}
+	}
+}
+
+void mostraListaComStruct(Lista lista, void (*mostraInfoComStr)(void *), void (*mostraInfoComInt)(void *), void (*mostraInfoComLista)(void *)) {
+	if (listaVazia(lista)) {
+	    printf("Lista vazia!\n");
+	} else {
+		Elemento *el = lista.cabeca;
+
+		while (el != NULL) {
+			el = el->proximo;
+
+			Node *conteudoStruct = el->info;
+
+			mostraInfoComStr(conteudoStruct->palavra);
+			mostraInfoComInt(conteudoStruct->numero_ocorrencias);
+			// mostraInfoComLista(conteudoStruct->ocorrencias);
+
 		}
 	}
 }
@@ -143,39 +161,15 @@ int destroy(Lista *lista) {
 	return EXIT_SUCCESS;
 }
 
-// void inverte(Lista *lista) {
-// 	if (!listaVazia(*lista)) {
-// 		Elemento *p1 = lista->cabeca;
-// 		Elemento *p2 = lista->cabeca;
+int buscaString(Lista lista, char string) {
+	Elemento *p = lista.cabeca;
 
-// 		while (p2->proximo != NULL) {
-// 			p2 = p2->proximo;
-// 		}
+	while (p != NULL) {
+		p = p->proximo;
 
-// 		while (p1 != p2->anterior && p1 != p2) {
-// 			void *aux = p1->info;
-// 			p1->info = p2->info;
-// 			p2->info = aux;
-// 			p1 = p1->proximo;
-// 			p2 = p2->anterior;
-// 		}
-// 	}
-// }
+		if (strcmp(p->info, string) == 0)
+			return EXIT_SUCCESS;
 
-// void ordena(int *v, int n) {
-// 	int i;
-
-// 	for (i = 0; i < n - 1; i++) {
-// 		int i_menor = i, j;
-
-// 		for (j = i + 1; j < n; j++) {
-// 			if (v[j] < v[i_menor]) {
-// 				i_menor = j;
-// 			}
-// 		}
-
-// 		int aux = v[i];
-// 		v[i] = v[i_menor];
-// 		v[i_menor] = aux;
-// 	}
-// }
+		return EXIT_FAILURE;
+	}
+}
